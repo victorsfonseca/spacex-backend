@@ -6,8 +6,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "de": "ts-node-dev --respawn ./src/teste.ts",
-    "dev": "tsc && node dist/server.js",
+    "start": "tsc && node dist/server.js",
     "batch": "tsc && node dist/runBatch.js",
     "test": "tsc && jest --config=jest.config.js"
   },
