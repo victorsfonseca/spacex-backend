@@ -1,22 +1,29 @@
 import { container } from 'tsyringe'
-import { ILaunchBatch } from '../contract/batch/iLaunch.batch.js';
-import { LaunchBatch } from '../batch/launch.batch.js';
-import { ILaunchBusiness } from '../contract/business/iLaunch.business.js';
-import { LaunchBusiness } from '../business/launch.business.js';
-import { ILaunchRepository } from '../contract/repository/iLaunch.repository.js';
-import { LaunchRepository } from '../repository/launch.repository.js';
-import { IHTTPClient } from '../contract/services/iHTTPCliente.service.js';
-import { HTTPClient } from '../service/HTTPClient.service.js';
-import { IDatabaseConfig } from '../contract/config/iDatabase.config.js';
-import { Config } from './config.js';
-import { ISpaceXConfig } from '../contract/config/iSpacex.config.js';
-import { IMainBusiness } from '../contract/business/iMain.business.js';
-import { MainBusiness } from '../business/main.business.js';
+import { ILaunchBatch } from '../contract/batch/iLaunch.batch';
+import { LaunchBatch } from '../batch/launch.batch';
+import { ILaunchBusiness } from '../contract/business/iLaunch.business';
+import { LaunchBusiness } from '../business/launch.business';
+import { ILaunchRepository } from '../contract/repository/iLaunch.repository';
+import { LaunchRepository } from '../repository/launch.repository';
+import { IHTTPClient } from '../contract/services/iHTTPCliente.service';
+import { HTTPClient } from '../service/HTTPClient.service';
+import { IDatabaseConfig } from '../contract/config/iDatabase.config';
+import { Config } from './config';
+import { ISpaceXConfig } from '../contract/config/iSpacex.config';
+import { IMainBusiness } from '../contract/business/iMain.business';
+import { MainBusiness } from '../business/main.business';
+import { iDi } from '../contract/config/iDi.config';
 
-container.registerSingleton<IDatabaseConfig>('DatabaseConfig', Config)
-container.registerSingleton<ISpaceXConfig>('SpaceXConfig', Config)
-container.registerSingleton<ILaunchBatch>('LaunchBatch', LaunchBatch)
-container.registerSingleton<ILaunchBusiness>('LaunchBusiness', LaunchBusiness)
-container.registerSingleton<ILaunchRepository>('LaunchRepository', LaunchRepository)
-container.registerSingleton<IHTTPClient>('HTTPClient', HTTPClient)
-container.registerSingleton<IMainBusiness>('MainBusiness', MainBusiness)
+export class DependencyInjection implements iDi{
+    resgiter(): void {
+        container.registerSingleton<IDatabaseConfig>('DatabaseConfig', Config)
+        container.registerSingleton<ISpaceXConfig>('SpaceXConfig', Config)
+        container.registerSingleton<ILaunchBatch>('LaunchBatch', LaunchBatch)
+        container.registerSingleton<ILaunchBusiness>('LaunchBusiness', LaunchBusiness)
+        container.registerSingleton<ILaunchRepository>('LaunchRepository', LaunchRepository)
+        container.registerSingleton<IHTTPClient>('HTTPClient', HTTPClient)
+        container.registerSingleton<IMainBusiness>('MainBusiness', MainBusiness)
+    }
+    
+}
+

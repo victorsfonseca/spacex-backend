@@ -3,7 +3,7 @@ import { Launch } from '../model/launch.model';
 import { LaunchStats } from '../model/launchStats.model';
 import { PaginatedReturn } from '../model/paginatedReturn.model';
 import { ILaunchRepository } from '../contract/repository/iLaunch.repository.js';
-import mongodb, { MongoClient } from 'mongodb'
+import { MongoClient } from 'mongodb'
 import { IDatabaseConfig } from '../contract/config/iDatabase.config';
 import { Rocket } from '../model/rocket.model';
 import { LaunchSuccessStats } from '../model/launchSuccessStats.model';
@@ -18,27 +18,25 @@ export class LaunchRepository implements ILaunchRepository {
         this.config = config
     }
 
-    private connectDB(): Promise<MongoClient>{
-        const dbClient = mongodb.MongoClient
-        return dbClient.connect(this.config.connectionString)
+    private async connectDB(): Promise<MongoClient>{
+        const dbClient = await MongoClient.connect(this.config.connectionString)
+        return dbClient
     }
 
     async launchesIdSaved(): Promise<string[]> {
-        return new Promise(async(resolve, reject)=>{
-            let client: MongoClient | null = null
-            try{
-                client = await this.connectDB()
-                let db = client.db(this.config.databaseName)
-                let result= (await db.collection('launches').find({}).toArray())
-                return resolve(result.map(_ => _.id) || [])
-            }
-            catch(error: any){
-                reject(error)
-            }
-            finally{
-                if(client) client.close()
-            }
-        })
+        let client: MongoClient | null = null
+        try{
+            client = await this.connectDB()
+            let db = client.db(this.config.databaseName)
+            let result= (await db.collection('launches').find({}).toArray())
+            return result.map(_ => _.id) || []
+        }
+        catch(error: any){
+            throw error
+        }
+        finally{
+            if(client) client.close()
+        }
     }
     
     async getAll(search?: string, limit?: number, page?: number | undefined): Promise<PaginatedReturn<Launch>> {

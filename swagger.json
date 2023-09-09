@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "coodesh-spacex-backend",
+      "description": "API coodesh-spacex-backend com swagger",
+      "version": "1.0"
+    },
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Mensagem de apresentação",
+          "description": "Fullstack Challenge 🏅 - Space X API",
+          "responses": {
+            "200": {
+              "description" : "Sucesso ao obter apresentação do desafio coodesh-spacex",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "message": "Fullstack Challenge 🏅 - Space X API"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description" : "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "message": "Error message"
+                    }                  
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Informações"
+          ]
+        }
+      },
+      "/launches": {
+        "get": {
+          "summary": "Lista todos os lançamentos",
+          "description": "Lista todos os lançamentos da base, com paginação e suporte a busca.",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "description": "String de busca.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Número limite de documentos a retornar. Se não especificado, retornará <code>10</code>.",
+              "required": false,
+              "type": "number",
+              "format": "integer"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Número da página a ser retornada. Retorna página <code>1</code> se parâmetro não for especificado.",
+              "required": false,
+              "type": "number",
+              "format": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description" : "Retorna todos os documentos paginados e filtrados pela busca",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "results": [
+                            {
+                              "id": "5eb87cd9ffd86e000604b32a",
+                              "flightNumber": 1,
+                              "name": "FalconSat",
+                              "launchDate": "2006-03-24T22:30:00.000Z",
+                              "rocket": {
+                                "id": "5e9d0d95eda69955f709d1eb",
+                                "name": "Falcon 1"
+                              },
+                              "success": false,
+                              "youtubeCode": "0a_00nJ_Y88"
+                          },
+                          {
+                            "id": "5eb87cdaffd86e000604b32b",
+                            "flightNumber": 2,
+                            "name": "DemoSat",
+                            "launchDate": "2007-03-21T01:10:00.000Z",
+                            "rocket": {
+                              "id": "5e9d0d95eda69955f709d1eb",
+                              "name": "Falcon 1"
+                            },
+                            "success": false,
+                            "youtubeCode": "Lk4zQ2wP-Nc"
+                          }
+                      ],
+                      "totalDocs": 20,
+                      "page": 1,
+                      "totalPages": 10, 
+                      "hasNext": true,
+                      "hasPrev": false
+                  }
+                  
+                  }
+                }
+              }
+            },
+            "400": {
+              "description" : "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "message": "Error message"
+                    }                  
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Lançamentos"
+          ]
+        }
+      },
+      "/launches/stats": {
+        "get": {
+          "summary": "Lista informações estatísticas",
+          "description": "Lista as informações estatísticas da base.",
+          "responses": {
+            "200": {
+              "description" : "Sucesso ao obter informações estatísticas",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "successResult": {
+                        "success": 10,
+                        "fails": 2
+                      },
+                      "statsPerYear": {
+                        "years": [
+                          2006,
+                          2007,
+                          2008
+                        ],
+                        "rockets": [
+                          {
+                            "rocketName": "Falcon 1",
+                            "launches": [
+                              1,
+                              0,
+                              2
+                            ]
+                          },
+                          {
+                            "rocketName": "Falcon 9",
+                            "launches": [
+                              0,
+                              1,
+                              4
+                            ]
+                          },
+                          {
+                            "rocketName": "Falcon Heavy",
+                            "launches": [
+                              1,
+                              2,
+                              1
+                            ]
+                          }
+                        ]
+                      },
+                      "statsPerRocket": [
+                        {
+                          "rocket": "Falcon 1",
+                          "value": 3
+                        },
+                        {
+                          "rocket": "Falcon 9",
+                          "value": 5
+                        },
+                        {
+                          "rocket": "Falcon Heavy",
+                          "value": 4
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description" : "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "message": "Error message"
+                    }                  
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "Lançamentos"
+          ]
+        }
+      }
+    }   
+}

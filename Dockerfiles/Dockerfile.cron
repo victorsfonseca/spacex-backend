@@ -1,0 +1,27 @@
+FROM ubuntu:23.04
+
+RUN touch /var/log/cron.log
+
+RUN apt-get update \
+    && apt-get -y install cron
+
+RUN apt-get -y install curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_18.x  | bash -
+RUN apt-get -y install nodejs
+
+COPY ./src /home/app/src/
+COPY ./crontabs /etc/cron.d
+COPY ./scripts /home/app/scripts/
+
+ENV HOME=/home/app
+WORKDIR $HOME
+
+COPY ./package.json $HOME
+
+RUN npm install
+
+COPY ./tsconfig.json $HOME
+
+RUN npm run build
+
+CMD cron && tail -f /var/log/cron.log

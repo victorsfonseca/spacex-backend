@@ -1,7 +1,11 @@
 const config = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/src/']
+    // moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    // transform: {
+    //     '^.+\\.ts?$': 'ts-jest',
+    //   },
+    testPathIgnorePatterns: ['<rootDir>/dist/']
 }
 
-export default config
+module.exports = config

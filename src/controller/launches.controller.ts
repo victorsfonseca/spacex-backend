@@ -1,40 +1,47 @@
+import "reflect-metadata";
 import { Router } from 'express'
-import { container } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 import { ILaunchBusiness } from '../contract/business/iLaunch.business.js'
+import { IController } from '../contract/controller/iController.controller.js'
 
-export const router = Router()
-let launchBusiness: ILaunchBusiness = container.resolve('LaunchBusiness')
+@injectable()
+export class LaunchController implements IController{
+    public router: Router
+    private launchBusiness: ILaunchBusiness
+    constructor(
+        @inject('LaunchBusiness')
+        launchBusiness: ILaunchBusiness
+    ){
+        this.router = Router()
+        this.launchBusiness = launchBusiness
+        this.configRoutes()
+    }
 
-router.get('/', async (req, res) => {
+    private configRoutes(){
+        this.router.get('/', async (req, res) => {
 
-    const search = req.query.search as string | undefined
-    const limit = Number(req.query.limit) || undefined
-    const page = Number(req.query.page) || undefined
+            const search = req.query.search as string | undefined
+            const limit = Number(req.query.limit) || undefined
+            const page = Number(req.query.page) || undefined
 
-    launchBusiness.getAll(search, limit, page)
-    .then(_ => {
-        res.json(_)
-    })
-    .catch(error => {
-        res.status(400).json({message: error.message})
-    })
-
-})
-
-router.get('/stats', (req, res) => {
-    try{
-        launchBusiness.getStats()
-        .then(result =>{
-            res.json(result)
-        })
-        .catch(error =>{
-            res.status(400).json({message: error.message})
+            this.launchBusiness.getAll(search, limit, page)
+            .then(_ => {
+                res.json(_)
+            })
+            .catch(error => {
+                res.status(400).json({message: error.message})
+            })
+        
         })
         
+        this.router.get('/stats', (req, res) => {
+            this.launchBusiness.getStats()
+            .then(result =>{
+                res.json(result)
+            })
+            .catch(error =>{
+                res.status(400).json({message: error.message})
+            })
+        })
     }
-    catch(error : any){
-        res.status(400).json({message: error.message})
-    }
-})
-
-export default router
+}

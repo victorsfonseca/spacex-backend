@@ -1,0 +1,1 @@
+00 09 * * * root chmod +x /home/app/scripts -R && /home/app/scripts/runBatch.sh >> /var/log/cron.log 2>&1

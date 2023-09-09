@@ -1,19 +1,34 @@
-import "reflect-metadata";
-import "./config/di.config.js"
 import express from 'express'
+import { Express } from 'express'
 import cors from 'cors'
-import {router as mainRounter} from './controller/main.controller.js'
-import {router as launchRouter} from './controller/launches.controller.js'
+import swaggerUi from 'swagger-ui-express'
+import { Route } from './model/route.server.js'
+const swaggerDocument = require('../swagger.json')
 
-const app = express()
+export class Server{
+    public app: Express
+    private routes: Route[]
+    private server: any
+    constructor(routes: Route[]){
+        this.routes = routes
+        this.app = express()
+    }
+    run(){
+        const port = 5000
 
-app.use(express.json())
-app.use(cors())
+        this.app.use(express.json())
+        this.app.use(cors())
 
-app.use('/', mainRounter)
+        this.routes.forEach( _ => {
+            this.app.use(_.path, _.router)
+        })
 
-app.use('/launches', launchRouter)
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.listen(5000, () => console.log('server running on port 5000'))
+        this.server = this.app.listen(port, () => console.log(`server running on port ${port}`))
+    }
 
-export default app
+    stop(){
+        this.server.close()
+    }
+}

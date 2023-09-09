@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: yourusername
+      MONGO_INITDB_ROOT_PASSWORD: yourpassword
+  server:
+    container_name: spacex-backend-server
+    build:
+      dockerfile: Dockerfiles/Dockerfile.server
+    ports:
+      - "5000:5000"
+    links: [ mongo ]
+  cron:
+    container_name: cron
+    build:
+      dockerfile: Dockerfiles/Dockerfile.cron
+    links: [ mongo ]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+volumes:
+  mongodb_data:

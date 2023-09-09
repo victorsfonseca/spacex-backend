@@ -1,18 +1,31 @@
+import "reflect-metadata";
 import { Router } from 'express'
 import { IMainBusiness } from '../contract/business/iMain.business'
-import { container } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
+import { IController } from '../contract/controller/iController.controller'
 
-let mainBusiness: IMainBusiness = container.resolve('MainBusiness')
-export const router = Router()
+@injectable()
+export class MainController implements IController{
+    public router: Router
+    private mainBusiness: IMainBusiness
+    constructor(
+        @inject('MainBusiness')
+        mainBusiness: IMainBusiness
+    ){
+        this.router = Router()
+        this.mainBusiness = mainBusiness
+        this.configRoutes()
+    }
 
-router.get('/', (req, res) => {
-    mainBusiness.getWelcomeMessage()
-    .then(message => {
-        res.json(message)
-    })
-    .catch(error => {
-        res.status(400).json({message: error.message})
-    })
-})
-
-export default router
+    private configRoutes(){
+        this.router.get('/', (req, res) => {
+            this.mainBusiness.getWelcomeMessage()
+            .then(message => {
+                res.json(message)
+            })
+            .catch(error => {
+                res.status(400).json({message: error.message})
+            })
+        })
+    }
+}
