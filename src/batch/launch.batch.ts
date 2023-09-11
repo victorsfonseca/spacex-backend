@@ -44,7 +44,8 @@ export class LaunchBatch implements ILaunchBatch {
                         launchDate: launchDate,
                         rocket: allRockets.find(_ => _.id == launch.rocket) || <Rocket>{ id: launch.rocket },
                         success: launch.success,
-                        youtubeCode: launch.links.youtube_id
+                        youtubeCode: launch.links.youtube_id,
+                        patch: launch.links.patch.small
                     }
                 })
                 await this.launchRepository.createMany(launchesToSave)

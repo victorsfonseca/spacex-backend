@@ -18,7 +18,7 @@ Necessário que docker e docker-compose estajam instalados e rodando.
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/spacex-api-challenge.git
+git clone https://github.com/victorsfonseca/spacex-backend.git
 ```
 
 2. Navegue para o diretório do projeto:
@@ -39,9 +39,9 @@ docker-compose up
 
 ### Aplicação
 
-O projeto foi executado em Typescript. O Typescript traz benefícios como detecção de erros de tipo em tempo de compilação tornando o desenvolvimento de aplicativos JavaScript mais seguros e escaláveis. Portanto, antes de executarmos os arquivos, devemos compilar.
+O projeto foi desenvolvido em Typescript. O Typescript traz benefícios como detecção de erros de tipo em tempo de compilação tornando o desenvolvimento de aplicativos JavaScript mais seguros e escaláveis. Portanto, antes de executarmos os arquivos, devemos compilar a aplicação.
 
-O projeto possui a seguinte estrutura organizada:
+A estrutura do projeto é organizada da seguinte forma:
 
 **Batch:** Esta camada é responsável pela execução de tarefas em lote ou em segundo plano. É fica os processos automatizados, como a sincronização diária dos lançamentos da SpaceX.
 
@@ -64,7 +64,7 @@ Para um baixo acoplamento foi usada uma arquitetura de inversão de controle e i
 
 O arquivo app.js é usado para configurar, definir rotas e iniciar o servidor da aplicação.
 
-O arquivo runBatch.js é usado para executar tarefas em lote e processos automatizados em segundo plano, neste a sincronização dos lançamentos da SpaceX.
+O arquivo runBatch.js é usado para executar tarefas em lote e processos automatizados em segundo plano, neste caso, a sincronização dos lançamentos da SpaceX.
 
 Para iniciar a API, execute:
 
@@ -105,3 +105,5 @@ O projeto inclui testes unitários para as rotas da API. Você pode executar os 
 ```bash
 npm run test
 ```
+
+This is a challenge by Coodesh

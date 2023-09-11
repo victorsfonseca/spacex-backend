@@ -80,7 +80,8 @@ describe('Api endpoints', () =>{
                           "name": "Falcon 1"
                         },
                         "success": false,
-                        "youtubeCode": "v0w9p3U8860"
+                        "youtubeCode": "v0w9p3U8860",
+                        "patch": "https://images2.imgbox.com/eb/0f/Vev7xkUX_o.png"
                       },
                       {
                         "id": "5eb87cd9ffd86e000604b32a",
@@ -92,7 +93,8 @@ describe('Api endpoints', () =>{
                           "name": "Falcon 1"
                         },
                         "success": false,
-                        "youtubeCode": "0a_00nJ_Y88"
+                        "youtubeCode": "0a_00nJ_Y88",
+                        "patch": "https://images2.imgbox.com/eb/0f/Vev7xkUX_o.png"
                       }
                 ]
                 const resultsExpected = [
@@ -106,7 +108,8 @@ describe('Api endpoints', () =>{
                           "name": "Falcon 1"
                         },
                         "success": false,
-                        "youtubeCode": "v0w9p3U8860"
+                        "youtubeCode": "v0w9p3U8860",
+                        "patch": "https://images2.imgbox.com/eb/0f/Vev7xkUX_o.png"
                       },
                       {
                         "id": "5eb87cd9ffd86e000604b32a",
@@ -118,7 +121,8 @@ describe('Api endpoints', () =>{
                           "name": "Falcon 1"
                         },
                         "success": false,
-                        "youtubeCode": "0a_00nJ_Y88"
+                        "youtubeCode": "0a_00nJ_Y88",
+                        "patch": "https://images2.imgbox.com/eb/0f/Vev7xkUX_o.png"
                       }
                 ]
                 launchBusiness.getAll.mockResolvedValue({

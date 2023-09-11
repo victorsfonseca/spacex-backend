@@ -7,5 +7,6 @@ export type Launch = {
     launchDate: Date,
     rocket: Rocket,
     success: boolean,
-    youtubeCode: string
+    youtubeCode: string,
+    patch: string
 }

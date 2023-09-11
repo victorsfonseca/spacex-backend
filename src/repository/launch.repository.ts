@@ -50,8 +50,9 @@ export class LaunchRepository implements ILaunchRepository {
             if (search) {
                 query.$or = [
                     { name: { $regex: search, $options: 'i' } },
-                    { success: search.toLowerCase() === 'sucesso' }
-                ];
+                    ('sucesso'.includes(search.toLowerCase()) && { success: true }),
+                    ('falha'.includes(search.toLowerCase()) && { success: false }),
+                ].filter(Boolean);
             }
 
             const totalCount = await collection.countDocuments(query);
