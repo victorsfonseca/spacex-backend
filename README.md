@@ -2,6 +2,8 @@
 
 Este repositório contém o backend da minha solução para o desafio Fullstack SpaceX API. Desenvolvi uma aplicação web que consome a API da SpaceX para listar informações sobre os lançamentos de foguetes da SpaceX e apresentar essas informações de maneira visualmente atraente. Instruções podem ser vistas em [README](instrucoes/README.md).
 
+Para ver a apresentação do projeto em vídeo curto [clicke aqui](https://www.loom.com/share/8f5a2c1e3cab43d2bc49863438b64cbc).
+
 ## Back-End
 
 ### Tecnologias Utilizadas
